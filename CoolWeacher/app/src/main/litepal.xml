@@ -1,0 +1,11 @@
+<litepal>
+
+    <dbname value="cool_weacher"></dbname>
+    <version value="1"></version>
+    <list>
+        <mapping class="com.example.zhumeilu.coolweacher.db.City"></mapping>
+        <mapping class="com.example.zhumeilu.coolweacher.db.County"></mapping>
+        <mapping class="com.example.zhumeilu.coolweacher.db.Province"></mapping>
+
+    </list>
+</litepal>
