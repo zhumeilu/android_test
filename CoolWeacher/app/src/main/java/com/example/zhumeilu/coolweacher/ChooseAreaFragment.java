@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,19 +99,23 @@ public class ChooseAreaFragment extends Fragment {
                 } else if (currentLevel == LEVLE_CITY) {
                     queryProvinceList();
                 }
+
             }
         });
+        queryProvinceList();
     }
 
     private void queryProvinceList() {
-
+        Log.d("ChooseAreaFragment","查询省份信息");
         titleText.setText("中国");
         backButton.setVisibility(View.GONE);
         provinceList = DataSupport.findAll(Province.class);
+        Log.d("ChooseAreaFragment","查询的list"+provinceList.size());
         if (provinceList.size() > 0) {
             dataList.clear();
             for (Province province : provinceList
                     ) {
+                Log.d("ChooseAreaFragment","查询的province"+province.getProvinceName());
                 dataList.add(province.getProvinceName());
             }
             adapter.notifyDataSetChanged();
@@ -166,15 +171,17 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryFromServer(String address, final String type) {
 
+        Log.d("ChooseAreaFragment","发送请求获取地址");
         showProgressDialog();
         HttpUtil.sendRequestByOkHttp(address, new Callback() {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                Log.d("ChooseAreaFragment","province body:"+response.body());
                 String responseText = response.body().string();
                 boolean result = false;
                 if("province".equals(type)){
+                    Log.d("ChooseAreaFragment","province json字符串:"+responseText);
                     result = Utility.handleProvinceResponse(responseText);
                 }else if("city".equals(type)){
                     result = Utility.handleCityResponse(responseText);
