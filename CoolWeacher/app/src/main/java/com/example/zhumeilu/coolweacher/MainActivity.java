@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getString("weather",null)!=null){
             Log.d("MainActivity","数据库不为空");
@@ -25,5 +26,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+=======
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if(prefs.getString("weather",null)!=null){
+//            Intent intent  =new Intent(this,WeatherActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+>>>>>>> c5039b5fb50b729fc562771b35259c97630fdf8e
     }
 }
