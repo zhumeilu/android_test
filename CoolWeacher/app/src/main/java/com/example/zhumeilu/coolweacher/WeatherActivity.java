@@ -48,10 +48,11 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView comfortText;
     private TextView carWashText;
     private TextView sportText;
-    private SwipeRefreshLayout swipeRefresh;
+    public SwipeRefreshLayout swipeRefresh;
     private ImageView bingPicImg;
     private Button navBtn;
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
+    public String weatherId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +80,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img);
         navBtn = (Button) findViewById(R.id.nav_btn);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
