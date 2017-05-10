@@ -177,9 +177,9 @@ public class ChooseAreaFragment extends Fragment {
                 if("province".equals(type)){
                     result = Utility.handleProvinceResponse(responseText);
                 }else if("city".equals(type)){
-                    result = Utility.handleCityResponse(responseText);
+                    result = Utility.handleCityResponse(responseText,selectedProvince.getId());
                 }else if("county".equals(type)){
-                    result = Utility.handleCountyResponse(responseText);
+                    result = Utility.handleCountyResponse(responseText,selectedCity.getId());
                 }
                 if(result){
                     getActivity().runOnUiThread(new Runnable() {
@@ -195,6 +195,8 @@ public class ChooseAreaFragment extends Fragment {
                             }
                         }
                     });
+                }else{
+                    Toast.makeText(getContext(), "处理参数出错", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

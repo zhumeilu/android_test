@@ -1,6 +1,7 @@
 package com.example.zhumeilu.coolweacher.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.zhumeilu.coolweacher.db.City;
 import com.example.zhumeilu.coolweacher.db.County;
@@ -25,10 +26,12 @@ public class Utility {
 
         if (!TextUtils.isEmpty(response)) {
             try {
-                Gson gson = new Gson();
-                List<Province> provinceList = gson.fromJson(response, new TypeToken<List<Province>>() {
-                }.getType());
-                for (Province province : provinceList) {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    Province province = new Province();
+                    province.setProvinceCode(jsonObject.getInt("id"));
+                    province.setProvinceName(jsonObject.getString("name"));
                     province.save();
                 }
                 return true;
@@ -39,14 +42,17 @@ public class Utility {
         return false;
     }
 
-    public static boolean handleCityResponse(String response) {
+    public static boolean handleCityResponse(String response,int provinceId) {
 
         if (!TextUtils.isEmpty(response)) {
             try {
-                Gson gson = new Gson();
-                List<City> cityList = gson.fromJson(response, new TypeToken<List<City>>() {
-                }.getType());
-                for (City city : cityList) {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    City city = new City();
+                    city.setCityCode(jsonObject.getInt("id"));
+                    city.setCityName(jsonObject.getString("name"));
+                    city.setProvinceId(provinceId);
                     city.save();
                 }
                 return true;
@@ -57,14 +63,17 @@ public class Utility {
         return false;
     }
 
-    public static boolean handleCountyResponse(String response) {
+    public static boolean handleCountyResponse(String response,int cityId) {
 
         if (!TextUtils.isEmpty(response)) {
             try {
-                Gson gson = new Gson();
-                List<County> countyList = gson.fromJson(response, new TypeToken<List<County>>() {
-                }.getType());
-                for (County county : countyList) {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    County county = new County();
+                    county.setCityId(cityId);
+                    county.setWeatherId(jsonObject.getString("weather_id"));
+                    county.setCountyName(jsonObject.getString("name"));
                     county.save();
                 }
                 return true;
