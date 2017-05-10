@@ -45,7 +45,7 @@ public class ChooseAreaFragment extends Fragment {
     public static final int LEVLE_COUNTY = 2;
     private ProgressDialog progressDialog;
     private TextView titleText;
-    private Button backButton;
+    private TextView backButton;
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private List<String> dataList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class ChooseAreaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.choose_area, container, false);
         titleText = (TextView) view.findViewById(R.id.title_text);
-        backButton = (Button) view.findViewById(R.id.back_button);
+        backButton = (TextView) view.findViewById(R.id.back_button);
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
@@ -116,6 +116,8 @@ public class ChooseAreaFragment extends Fragment {
             for (Province province : provinceList
                     ) {
                 Log.d("ChooseAreaFragment","查询的province"+province.getProvinceName());
+                if(province.getProvinceName()==null)
+                    break;
                 dataList.add(province.getProvinceName());
             }
             adapter.notifyDataSetChanged();
@@ -129,7 +131,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryCityList() {
         titleText.setText(selectedProvince.getProvinceName());
-        backButton.setVisibility(View.GONE);
+        backButton.setVisibility(View.VISIBLE);
         cityList = DataSupport.where("provinceid = ?",String.valueOf(selectedProvince.getId())).find(City.class);
         if(cityList.size()>0){
             dataList.clear();
@@ -150,7 +152,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCountList() {
 
         titleText.setText(selectedCity.getCityName());
-        backButton.setVisibility(View.GONE);
+        backButton.setVisibility(View.VISIBLE);
         countyList = DataSupport.where("cityid = ?",String.valueOf(selectedCity.getId())).find(County.class);
         if(countyList.size()>0){
             dataList.clear();
