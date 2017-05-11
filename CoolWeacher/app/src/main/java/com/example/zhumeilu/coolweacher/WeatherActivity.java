@@ -114,7 +114,12 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestWeather(weatherId);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext());
+                String cacheWeatherId = prefs.getString("weatherId",null);
+                if(cacheWeatherId!=null)
+                    requestWeather(cacheWeatherId);
+                else
+                    requestWeather(weatherId);
             }
         });
 
